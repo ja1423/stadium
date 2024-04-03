@@ -20,6 +20,7 @@ import { UserCardsModule } from './user_cards/user_cards.module';
 import { CommentsModule } from './comments/comments.module';
 import { UserWalletModule } from './user_wallet/user_wallet.module';
 import { ComfortStadiumModule } from './comfort_stadium/comfort_stadium.module';
+import { StadiumModule } from './stadium/stadium.module';
 
 
 @Module({
@@ -61,6 +62,7 @@ import { ComfortStadiumModule } from './comfort_stadium/comfort_stadium.module';
     CommentsModule,
     UserWalletModule,
     ComfortStadiumModule,
+    StadiumModule,
   ],
   controllers:[],
   providers:[],
