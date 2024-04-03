@@ -21,6 +21,7 @@ import { CommentsModule } from './comments/comments.module';
 import { UserWalletModule } from './user_wallet/user_wallet.module';
 import { ComfortStadiumModule } from './comfort_stadium/comfort_stadium.module';
 import { StadiumModule } from './stadium/stadium.module';
+import { Bot } from './bot/models/bot.models';
 
 
 @Module({
@@ -41,7 +42,7 @@ import { StadiumModule } from './stadium/stadium.module';
       username:process.env.POSTGRES_USER,
       password:process.env.POSTGRES_PASSWORD,
       database:process.env.POSTGRES_DB,
-      models:[User],
+      models:[User,Bot],
       autoLoadModels:true,
       sync:{alter:true},
       logging:true,

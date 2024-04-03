@@ -4,8 +4,11 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript';
 interface ICreateComfortStadiumAttr {
   name: string;
 }
-
-export class ComfortStadium extends Model<ComfortStadium, ICreateComfortStadiumAttr> {
+@Table({ tableName: 'comfortstadium' })
+export class ComfortStadium extends Model<
+  ComfortStadium,
+  ICreateComfortStadiumAttr
+> {
   @ApiProperty({ example: 1, description: 'comfortStadium ID unique ' })
   @Column({ type: DataType.INTEGER, autoIncrement: true, primaryKey: true })
   id: number;
