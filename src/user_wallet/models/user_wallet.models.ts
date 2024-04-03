@@ -10,7 +10,7 @@ import {
 
 interface IUserWalletAttr {
   name: string;
-  regionId: number;
+  userId: number;
 }
 
 @Table({ tableName: 'user_wallet' })

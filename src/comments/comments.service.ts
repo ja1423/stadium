@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
+import { InjectModel } from '@nestjs/sequelize';
+import { Comment } from './models/comment.models';
 
 @Injectable()
 export class CommentsService {
+  constructor(@InjectModel(Comment)private commentRepo:typeof Comment){}
   create(createCommentDto: CreateCommentDto) {
-    return 'This action adds a new comment';
+    return this.commentRepo.create(createCommentDto);
   }
 
   findAll() {
-    return `This action returns all comments`;
+    return this.commentRepo.findAll({include:{all:true}});
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} comment`;
+    return this.commentRepo.findByPk(id);
   }
 
   update(id: number, updateCommentDto: UpdateCommentDto) {
-    return `This action updates a #${id} comment`;
+    return this.commentRepo.update(updateCommentDto,{
+      where:{id},
+      returning:true,
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} comment`;
+    return this.commentRepo.destroy({where:{id}});
   }
 }
