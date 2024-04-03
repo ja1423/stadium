@@ -10,6 +10,8 @@ import * as bcrypt from 'bcrypt'
 import {v4} from 'uuid'
 import { MailService } from '../mail/mail.service';
 import { LoginUserDto } from './dto/login-user.dto';
+import { FindUserDto } from './dto/find-user.dto';
+import { Op } from 'sequelize';
 
 
 @Injectable()
@@ -109,7 +111,7 @@ export class UsersService {
     };
   }
 
-  async login(loginUserDto: LoginUserDto, res: Response) {
+    async login(loginUserDto: LoginUserDto, res: Response) {
     const { email, password } = loginUserDto;
 
     // Find the user with the given email in the user repository
@@ -224,6 +226,40 @@ export class UsersService {
     return response;
     }
   
+
+    async findUser(findUserDto:FindUserDto){
+      const where={}
+      if(findUserDto.full_name){
+        where['full_name']={
+          [Op.like]:`%${findUserDto.full_name}%`
+        }
+      }
+
+      if(findUserDto.email){
+        where['email']={
+          [Op.like]:`%${findUserDto.email}%`
+        }
+      }
+      if(findUserDto.phone){
+        where['phone']={
+          [Op.like]:`%${findUserDto.phone}%`
+        }
+      }
+      if(findUserDto.tg_link){
+        where['tg_link']={
+          [Op.like]:`%${findUserDto.tg_link}%`
+        }
+      }
+      console.log(where);
+
+      const users=await this.userRepo.findAll({
+          where
+        })      
+
+        if(!users){
+          throw new BadRequestException('user does not exist');
+        }
+    }
 
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';

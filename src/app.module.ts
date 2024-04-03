@@ -10,10 +10,28 @@ import { RegionModule } from './region/region.module';
 import { AdminModule } from './admin/admin.module';
 import { MailModule } from './mail/mail.module';
 import { MediaModule } from './media/media.module';
+import { BotModule } from './bot/bot.module';
+import { TelegrafModule } from 'nestjs-telegraf';
+import { BOT_NAME } from './app.constants';
+import { StadiumTimesModule } from './stadium_times/stadium_times.module';
+import { OrdersModule } from './orders/orders.module';
+import { CartModule } from './cart/cart.module';
+import { UserCardsModule } from './user_cards/user_cards.module';
+import { CommentsModule } from './comments/comments.module';
+import { UserWalletModule } from './user_wallet/user_wallet.module';
+import { ComfortStadiumModule } from './comfort_stadium/comfort_stadium.module';
 
 
 @Module({
   imports:[
+    TelegrafModule.forRootAsync({
+      botName:BOT_NAME,
+      useFactory:()=>({
+        token:process.env.BOT_TOKEN,
+        middlewares:[],
+        include:[BotModule]
+      })
+    }),
     ConfigModule.forRoot({envFilePath:'.env',isGlobal:true}),
     SequelizeModule.forRoot({
       dialect:"postgres",
@@ -35,6 +53,14 @@ import { MediaModule } from './media/media.module';
     AdminModule,
     MailModule,
     MediaModule,
+    BotModule,
+    StadiumTimesModule,
+    OrdersModule,
+    CartModule,
+    UserCardsModule,
+    CommentsModule,
+    UserWalletModule,
+    ComfortStadiumModule,
   ],
   controllers:[],
   providers:[],

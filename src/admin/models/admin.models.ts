@@ -20,6 +20,12 @@ export class Admin extends Model<Admin, IAdminAttr> {
   login: string;
 
   @Column({ type: DataType.STRING })
+  
+  email: string;
+  @Column({
+    type: DataType.STRING,
+  })
+
   telegram_link: string;
 
   @Column({ type: DataType.STRING })
